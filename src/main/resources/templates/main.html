@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="http://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=EHDhTt6iqk7HwqS2AirSY71g65xVG8Rp3LtZaIIx"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+<h1>Route Finder</h1>
+
+<div class="search-container">
+    <input type="text" id="startLocation" placeholder="출발지 검색">
+    <button id="startSearch">검색</button>
+    <div id="startPoiList" class="poi-list"></div>
+</div>
+
+<div class="search-container">
+    <input type="text" id="endLocation" placeholder="목적지 검색">
+    <button id="endSearch">검색</button>
+    <div id="endPoiList" class="poi-list"></div>
+</div>
+
+<div id="map_div" style="width:100%; height:500px;"></div>
+
+<button id="findRoute">경로 찾기</button>
+<button id="navigate">네비</button>
