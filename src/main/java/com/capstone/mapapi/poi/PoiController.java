@@ -12,23 +12,22 @@ public class PoiController {
     private PoiService poiService;
 
     @PostMapping("/startSearch")
-    public ResponseEntity<Poi> searchStartPoi(@RequestBody String keyword) {
-        Poi poi = poiService.searchFirstPoi(keyword, true); // 출발지 검색 시 isStart=true
+    public ResponseEntity<Poi> searchStartPoi(@RequestBody Poi.SearchRequest request) {
+        Poi poi = poiService.searchFirstPoi(request.getKeyword(), true, request.getUserID()); // 출발지 검색 시 isStart=true
         if (poi != null) {
-            return ResponseEntity.ok(poi); // POI가 있을 경우 200 OK 반환
+            return ResponseEntity.ok(poi);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // POI가 없을 경우 404 NOT FOUND 반환
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
     @PostMapping("/endSearch")
-    public ResponseEntity<Poi> searchEndPoi(@RequestBody String keyword) {
-        Poi poi = poiService.searchFirstPoi(keyword, false); // 목적지 검색
-
+    public ResponseEntity<Poi> searchEndPoi(@RequestBody Poi.SearchRequest request) {
+        Poi poi = poiService.searchFirstPoi(request.getKeyword(), false, request.getUserID()); // 목적지 검색
         if (poi != null && poi.getName() != null) {
-            return ResponseEntity.ok(poi); // POI가 있을 경우 200 OK 반환
+            return ResponseEntity.ok(poi);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // POI가 없을 경우 404 NOT FOUND 반환
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }

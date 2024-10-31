@@ -1,18 +1,20 @@
 package com.capstone.mapapi.destination;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/destination")
 public class DestinationController {
 
     @Autowired
     private DestinationService destinationService;
 
-    @PostMapping("/destination")
+    @PostMapping
     public Destination createDestination(@RequestBody Destination destination) {
         return destinationService.saveDestination(destination);
     }
+
 }

@@ -21,13 +21,14 @@ public class WalkRoute {
     private String endName;
     @Lob
     private String response;
+    private String userID;
 
     // 기본 생성자
     public WalkRoute() {
     }
 
 
-    public WalkRoute(String startX, String startY, String endX, String endY, String startName, String endName, String response) {
+    public WalkRoute(String startX, String startY, String endX, String endY, String startName, String endName, String response, String userID) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
@@ -35,6 +36,7 @@ public class WalkRoute {
         this.startName = startName;
         this.endName = endName;
         this.response = response;
+        this.userID = userID;
     }
 
     public String getStartX() {
@@ -44,8 +46,29 @@ public class WalkRoute {
     public String getStartY() {
         return startY;
     }
+    public String getEndX() {
+        return endX;
+    }
+    public String getEndY() {
+        return endY;
+    }
+    public String getStartName() {
+        return startName;
+    }
+
+    public String getEndName() {
+        return endName;
+    }
 
     public String getResponse() {
         return response;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
