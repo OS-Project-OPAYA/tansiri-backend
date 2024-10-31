@@ -1,7 +1,9 @@
 package com.capstone.mapapi.destination;
 
+import com.capstone.mapapi.start.Start;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class DestinationService {
@@ -9,13 +11,14 @@ public class DestinationService {
     @Autowired
     private DestinationRepository destinationRepository;
 
-    // 가장 최근 목적지 가져오기
-    public Destination getLatestDestination() {
-        // 가장 최근 목적지를 찾기 위한 쿼리 메서드 호출
-        return destinationRepository.findTopByOrderByDestinationIdDesc();
-    }
 
     public Destination saveDestination(Destination destination) {
         return destinationRepository.save(destination);
     }
+
+    // 사용자 ID로 목적지를 가져오는 새로운 메서드
+    public Destination getDestinationsByUserID(String userID) {
+        return destinationRepository.findTopByUserIDOrderByDestinationIdDesc(userID);
+    }
+
 }

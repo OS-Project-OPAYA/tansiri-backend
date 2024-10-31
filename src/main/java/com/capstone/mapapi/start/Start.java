@@ -20,15 +20,17 @@ public class Start {
     private String startName;
     private String startLat;
     private String startLon;
+    private String userID;
 
     // 기본 생성자
     public Start() {}
 
     // 모든 필드를 포함한 생성자
-    public Start(String startName, String  startLat, String startLon) {
+    public Start(String startName, String  startLat, String startLon, String userID) {
         this.startName = startName;
         this.startLat = startLat;
         this.startLon = startLon;
+        this.userID = userID;
     }
 
     public String getStartLon() {
@@ -42,5 +44,9 @@ public class Start {
 
     public String getStartName() {
         return startName;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 }

@@ -20,15 +20,17 @@ public class Destination {
     private String destinationName;
     private String destinationLat;
     private String destinationLon;
+    private String userID;
 
     // 기본 생성자
     public Destination() {}
 
     // 모든 필드를 포함한 생성자
-    public Destination(String destinationName, String destinationLat, String destinationLon) {
+    public Destination(String destinationName, String destinationLat, String destinationLon, String userID) {
         this.destinationName = destinationName;
         this.destinationLat = destinationLat;
         this.destinationLon = destinationLon;
+        this.userID = userID;
     }
 
 
@@ -42,5 +44,9 @@ public class Destination {
 
     public String getDestinationName() {
         return destinationName;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 }

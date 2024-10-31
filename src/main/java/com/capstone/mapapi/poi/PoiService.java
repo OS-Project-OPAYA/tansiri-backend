@@ -26,10 +26,8 @@ public class PoiService {
     @Autowired
     private DestinationService destinationService;
 
-    // TMap API로 장소 검색 및 저장
-    public Poi searchFirstPoi(String keyword, boolean isStart) {
+    public Poi searchFirstPoi(String keyword, boolean isStart, String userID) {
         Poi selectedPoi = null;
-
         // TMap API 호출 URL 구성
         String url = "https://apis.openapi.sk.com/tmap/pois?version=1&searchKeyword="
                 + keyword
@@ -43,35 +41,27 @@ public class PoiService {
 
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
-                System.out.println("TMap API call successful!"); // 성공 로그
                 JsonNode rootNode = objectMapper.readTree(response.body().string());
                 JsonNode poisNode = rootNode.path("searchPoiInfo").path("pois").path("poi");
-                System.out.println("Response: " + rootNode.toString()); // API 응답 출력
 
                 if (poisNode.isArray() && poisNode.size() > 0) {
                     // 첫 번째 장소 선택
-                    JsonNode firstPoi = poisNode.get(0); // 첫 번째 결과 가져오기
+                    JsonNode firstPoi = poisNode.get(0);
                     selectedPoi = new Poi();
                     selectedPoi.setId(firstPoi.path("id").asText(null));
                     selectedPoi.setName(firstPoi.path("name").asText(null));
                     selectedPoi.setFrontLat(firstPoi.path("frontLat").asText(null));
                     selectedPoi.setFrontLon(firstPoi.path("frontLon").asText(null));
-                    System.out.println("Selected first POI: " + selectedPoi.getName() + " " + selectedPoi.getFrontLat()
-                            + " " + selectedPoi.getFrontLon()); // 선택된 장소 로그
 
                     // 출발지이면 Start 테이블에 저장, 목적지이면 Destination 테이블에 저장
                     if (isStart) {
-                        Start start = new Start(selectedPoi.getName(), selectedPoi.getFrontLat(), selectedPoi.getFrontLon());
+                        Start start = new Start(selectedPoi.getName(), selectedPoi.getFrontLat(), selectedPoi.getFrontLon(), userID);
                         startService.saveStart(start); // StartService를 통해 저장
                     } else {
-                        Destination destination = new Destination(selectedPoi.getName(), selectedPoi.getFrontLat(), selectedPoi.getFrontLon());
+                        Destination destination = new Destination(selectedPoi.getName(), selectedPoi.getFrontLat(), selectedPoi.getFrontLon(), userID);
                         destinationService.saveDestination(destination); // DestinationService를 통해 저장
                     }
-                } else {
-                    System.out.println("No POIs found.");
                 }
-            } else {
-                System.out.println("TMap API call failed: " + response.code()); // 실패 로그
             }
         } catch (Exception e) {
             e.printStackTrace();

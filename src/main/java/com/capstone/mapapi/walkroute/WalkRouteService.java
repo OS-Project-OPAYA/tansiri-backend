@@ -29,16 +29,18 @@ public class WalkRouteService {
     @Autowired
     private WalkRouteRepository walkRouteRepository;
 
-    public WalkRoute getLatestWalkRoute() {
-        return walkRouteRepository.findTopByOrderByIdDesc(); // 가장 최근의 WalkRoute 데이터 반환
+
+    public WalkRoute getWalkRouteByUserID(String userID) {
+        return walkRouteRepository.findTopByUserIDOrderByIdDesc(userID); // userID로 최근 WalkRoute 데이터 반환
     }
 
+
     // 경로 안내 API 호출 메서드
-    public void findRoute() {
+    public void findRoute(String userID) {
         // Start 테이블에서 출발지 정보 가져오기
-        Start start = startService.getLatestStart();
+        Start start = startService.getStartByUserID(userID);
         // Destination 테이블에서 목적지 정보 가져오기
-        Destination destination = destinationService.getLatestDestination();
+        Destination destination = destinationService.getDestinationsByUserID(userID);
 
         if (start != null && destination != null) {
             // 출발지 및 목적지의 좌표와 이름을 가져오기
@@ -76,7 +78,7 @@ public class WalkRouteService {
                     WalkRoute walkRoute = new WalkRoute(
                             startX, startY,
                             destinationX, destinationY,
-                            start.getStartName(), destination.getDestinationName(), responseBody
+                            start.getStartName(), destination.getDestinationName(), responseBody, userID
                     );
                     // 데이터베이스에 저장
                     walkRouteRepository.save(walkRoute);
@@ -92,7 +94,6 @@ public class WalkRouteService {
             System.out.println("출발지 또는 목적지가 존재하지 않습니다.");
         }
     }
-
 
 
 }
