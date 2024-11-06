@@ -22,7 +22,6 @@ public class Destination {
     private String destinationLon;
     private String userID;
 
-    // 기본 생성자
     public Destination() {}
 
     // 모든 필드를 포함한 생성자
