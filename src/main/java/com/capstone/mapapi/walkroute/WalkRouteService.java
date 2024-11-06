@@ -72,7 +72,6 @@ public class WalkRouteService {
                     // 성공적인 응답 처리
                     String responseBody = response.body().string();
                     System.out.println("Route API call successful!");
-                    System.out.println("Response: " + responseBody);
 
                     // WalkRoute 객체에 API 응답 데이터 저장
                     WalkRoute walkRoute = new WalkRoute(

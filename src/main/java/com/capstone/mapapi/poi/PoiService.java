@@ -19,7 +19,6 @@ public class PoiService {
     private final OkHttpClient client = new OkHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    // StartService와 DestinationService 주입
     @Autowired
     private StartService startService;
 
